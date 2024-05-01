@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DataList from "./components/DataList.jsx";
 import SelectTypeForm from "./components/SelectTypeForm.jsx";
 import "./App.css";
@@ -8,10 +8,16 @@ export default function App() {
 
   const [data, setData] = useState(null);
 
-  console.log({ data });
 
-  // Write code here.
-  //
+  useEffect(() => {
+    const url = `https://swapi.dev/api/${dataType}/`
+    const getData = async () => {
+      const apiData = await fetch(url)
+      const json = await apiData.json()
+      setData(json)
+    }
+    getData()
+  }, [dataType])
 
   return (
     <div>
